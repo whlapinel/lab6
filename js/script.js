@@ -79,7 +79,7 @@ function addEntry(article) {
   articleBody.appendChild(articleTitle);
   articleContainer.appendChild(articleBody);
   articleBody.appendChild(articlePreview);
-  // Step 8 hide excess content
+  // Step 8-11 hide excess content
   if (article.content.length > MAX_LENGTH) {
     const hiddenContent = articlePreview.innerHTML.substring(MAX_LENGTH); 
     console.log(hiddenContent);
