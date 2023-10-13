@@ -27,9 +27,12 @@ const articles = [
   }
 ];
 
+
+
 articles.forEach(article=>{
   addEntry(article);
 });
+
 
 
 /**
@@ -37,6 +40,64 @@ articles.forEach(article=>{
  * @param {object} article - an article
  */
 function addEntry(article) {
+  // Step 4 add articles
+  const articleContainer = document.createElement("article");
+  console.log(articleContainer);
+  articleContainer.classList.add("article-container");
+  const articlesWrapper = document.querySelector(".articles-wrapper");
+  articlesWrapper.appendChild(articleContainer);
+  // Step 5 add the delete button
+  const delBtn = document.createElement("button");
+  delBtn.innerHTML = "✕";
+  delBtn.classList.add("delete-btn");
+  articleContainer.appendChild(delBtn);
+  // Step 6 add the article header (avatar photo, name, posted date)
+  const articleHeader = document.createElement("div");
+  articleHeader.classList.add("article-header");
+  const avatarImg = document.createElement("img");
+  avatarImg.classList.add('avatar');
+  let filePath = ("images/default.jpeg");
+  if (authors.includes(article.author)) {
+    const authorIndex = authors.indexOf(article.author)
+    filePath = ("images/avatar" + authorIndex + ".png");
+  }
+  avatarImg.setAttribute("src",filePath);
+  avatarImg.setAttribute("alt","avatar picture");
+  const articleInfo = document.createElement('div');
+  const formattedDate = article.date.toDateString();
+  articleInfo.innerHTML = article.author + " · " + formattedDate;
+  articleHeader.appendChild(avatarImg);
+  articleHeader.appendChild(articleInfo);
+  articleContainer.appendChild(articleHeader);
+  // Step 7 add body of the article
+  const articleBody = document.createElement('div');
+  articleBody.classList.add('article-body');
+  const articleTitle = document.createElement('h3');
+  articleTitle.innerHTML = article.title;
+  const articlePreview = document.createElement('p');
+  articlePreview.innerHTML = article.content;
+  articleBody.appendChild(articleTitle);
+  articleContainer.appendChild(articleBody);
+  articleBody.appendChild(articlePreview);
+  // Step 8 hide excess content
+  if (article.content.length > MAX_LENGTH) {
+    const hiddenContent = articlePreview.innerHTML.substring(MAX_LENGTH); 
+    console.log(hiddenContent);
+    articlePreview.innerHTML = articlePreview.innerHTML.substring(0,MAX_LENGTH) + '...';
+    const hiddenSpan = document.createElement('span');
+    hiddenSpan.classList.add('hidden');
+    hiddenSpan.innerHTML = hiddenContent;
+    const readMoreBtn = document.createElement('button');
+    readMoreBtn.innerHTML = 'Read More';
+    readMoreBtn.classList.add('btn');   
+    articleBody.appendChild(readMoreBtn);
+  }
+
+
+  
+
+
+
 
 }
 
